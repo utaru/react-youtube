@@ -1,9 +1,12 @@
-function App() {
- 
-
+import Navbar from "./components/Navbar.jsx";
+import PizzaList from "./components/PizzaList.jsx";
+export default function App() {
   return (
-    <h1>Hello REACTTTTTT</h1>
-  )
+    <>
+      <Navbar />
+      <div className='container'>
+        <PizzaList />
+      </div>
+    </>
+  );
 }
-
-export default App
