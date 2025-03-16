@@ -83,24 +83,39 @@ function Form({ onAddItem }) {
   //     setItemName(event.target.value);
   //   }
   return (
-    <form onSubmit={handleFormSubmit}>
-      <input
-        type="text"
-        placeholder="eleman ekle"
-        name="itemName"
-        value={ItemName}
-        // onChange={handleInputChange}
-        onChange={(e) => setItemName(e.target.value)}
-      />
-      {/* {ItemName} */}
-      <select value={quantity} onChange={(e) => SetQuantity(e.target.value)}>
-        {Array.from({ length: 100 }, (v, i) => i + 1).map((num) => (
-          <option key={num} value={num}>
-            {num}
-          </option>
-        ))}
-      </select>
-      <button type="submit">Ekle</button>
+    <form className="container p-0" onSubmit={handleFormSubmit}>
+      <div className="row">
+        <div className="col-10">
+          <input
+            className="form-control"
+            type="text"
+            placeholder="eleman ekle"
+            name="itemName"
+            value={ItemName}
+            // onChange={handleInputChange}
+            onChange={(e) => setItemName(e.target.value)}
+          />
+          {/* {ItemName} */}
+        </div>
+        <div className="col">
+          <select
+            className="form-select"
+            value={quantity}
+            onChange={(e) => SetQuantity(e.target.value)}
+          >
+            {Array.from({ length: 100 }, (v, i) => i + 1).map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col">
+          <button className="btn btn-primary" type="submit">
+            Ekle
+          </button>
+        </div>
+      </div>
     </form>
   );
 }
@@ -109,7 +124,7 @@ function List({ listitems, onDeleteItem, onUpdateItem }) {
   return (
     <>
       {listitems.length > 0 ? (
-        <ul>
+        <ul className="list-group mt-3">
           {listitems.map((p, index) => (
             <ListItem
               item={p}
@@ -120,7 +135,7 @@ function List({ listitems, onDeleteItem, onUpdateItem }) {
           ))}
         </ul>
       ) : (
-        <p>Eleman Yokkkkk</p>
+        <p className="text-danger">Eleman Yokkkkk</p>
       )}
     </>
   );
@@ -128,16 +143,24 @@ function List({ listitems, onDeleteItem, onUpdateItem }) {
 
 function ListItem({ item, onDeleteListItem, onUpdateListItem }) {
   return (
-    <li>
-      <input
-        type="checkbox"
-        checked={item.complated}
-        onChange={() => onUpdateListItem(item.id)}
-      />
-      <span style={item.complated ? { textDecoration: "line-through" } : {}}>
-        {item.title} - {item.quantity}
-      </span>
-      <button onClick={() => onDeleteListItem(item.id)}>X</button>
+    <li className="list-group-item d-flex justify-content-between">
+      <div>
+        <input
+          type="checkbox"
+          className="form-check-input me-2"
+          checked={item.complated}
+          onChange={() => onUpdateListItem(item.id)}
+        />
+        <span style={item.complated ? { textDecoration: "line-through" } : {}}>
+          {item.title} - {item.quantity}
+        </span>
+      </div>
+      <button
+        className="btn btn-sm btn-danger"
+        onClick={() => onDeleteListItem(item.id)}
+      >
+        X
+      </button>
     </li>
   );
 }
@@ -147,9 +170,9 @@ function Summary({ sumItems }) {
   const complatedItemsCount = sumItems.filter((i) => i.complated).length; // sumItems.filter((i) => i.complated === true).length;
 
   return (
-    <footer>
+    <footer className="card-footer">
       {itemCount === complatedItemsCount ? (
-        <p>&#128522; Alışveriş Tamamlandııı.</p>
+        <p className="mb-0">&#128522; Alışveriş Tamamlandııı.</p>
       ) : (
         <p>
           Alışveriş sepetinizde {itemCount} üründen {complatedItemsCount} {"  "}{" "}
@@ -157,8 +180,8 @@ function Summary({ sumItems }) {
         </p>
       )}
 
-      <p>Toplam Ürün: {itemCount}</p>
-      <p>Tamamlanan Ürün: {complatedItemsCount}</p>
+      <p className="mb-0">Toplam Ürün: {itemCount}</p>
+      <p className="mb-0">Tamamlanan Ürün: {complatedItemsCount}</p>
     </footer>
   );
 }
